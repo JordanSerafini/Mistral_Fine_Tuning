@@ -31,25 +31,31 @@ const trainingConfig = {
   hub_model_id: OUTPUT_MODEL,
   training_file: trainingDataPath,
   num_train_epochs: 3,
-  learning_rate: 2e-5,
+  learning_rate: 5e-5,
   per_device_train_batch_size: 4,
   gradient_accumulation_steps: 4,
   optim: 'adamw_torch',
-  save_steps: 500,
+  save_steps: 200,
   logging_steps: 100,
   evaluation_strategy: 'steps',
-  eval_steps: 500,
+  eval_steps: 200,
   warmup_steps: 100,
-  max_grad_norm: 1.0,
+  max_grad_norm: 0.5,
   weight_decay: 0.01,
   fp16: true,
+  bf16: true,
+  trust_remote_code: true,
+  max_length: 32768,
+  temperature: 0.6,
+  top_p: 0.95,
   peft_config: {
     peft_type: 'lora',
     r: 16,
     lora_alpha: 32,
     lora_dropout: 0.05,
     bias: 'none',
-    task_type: 'CAUSAL_LM'
+    task_type: 'CAUSAL_LM',
+    target_modules: ["q_proj", "k_proj", "v_proj", "o_proj"]
   }
 };
 
@@ -57,11 +63,29 @@ const trainingConfig = {
  * Fonction pour lancer le fine-tuning via l'API Hugging Face
  */
 async function startFineTuning() {
-  console.log('Démarrage du fine-tuning de Mistral pour le domaine du bâtiment...');
+  console.log('Démarrage du fine-tuning de DeepSeek pour le domaine du bâtiment...');
   console.log(`Modèle de base: ${BASE_MODEL}`);
   console.log(`Modèle de sortie: ${OUTPUT_MODEL}`);
   
   try {
+    // Vérifier la connexion à Hugging Face
+    try {
+      await axios.get('https://huggingface.co/api/health');
+      console.log('✓ Connexion à Hugging Face établie');
+    } catch (error) {
+      throw new Error('Impossible de se connecter à Hugging Face. Vérifiez votre connexion Internet.');
+    }
+
+    // Vérifier la clé API
+    try {
+      await axios.get('https://huggingface.co/api/whoami', {
+        headers: { 'Authorization': `Bearer ${HF_API_KEY}` }
+      });
+      console.log('✓ Clé API valide');
+    } catch (error) {
+      throw new Error('Clé API invalide ou problème d\'authentification.');
+    }
+    
     // Préparer les données pour l'API
     const formData = new FormData();
     formData.append('training_file', fs.createReadStream(trainingDataPath));
@@ -69,13 +93,17 @@ async function startFineTuning() {
     
     // Appel à l'API Hugging Face pour le fine-tuning
     const response = await axios.post(
-      'https://api-inference.huggingface.co/models/fine-tune',
+      'https://huggingface.co/api/models/fine-tune',
       formData,
       {
         headers: {
           'Authorization': `Bearer ${HF_API_KEY}`,
+          'Content-Type': 'multipart/form-data',
           ...formData.getHeaders()
-        }
+        },
+        maxBodyLength: Infinity,
+        maxContentLength: Infinity,
+        timeout: 60000 // 60 secondes de timeout
       }
     );
     
@@ -84,7 +112,7 @@ async function startFineTuning() {
     console.log('Statut:', response.data.status);
     console.log('Vous pouvez suivre la progression sur Hugging Face.');
     
-    // Enregistrer les informations de la tâche pour référence future
+    // Enregistrer les informations de la tâche
     fs.writeFileSync(
       path.join(__dirname, 'fine_tuning_task.json'),
       JSON.stringify(response.data, null, 2)
@@ -93,9 +121,18 @@ async function startFineTuning() {
   } catch (error) {
     console.error('Erreur lors du démarrage du fine-tuning:');
     if (error.response) {
-      console.error('Réponse de l\'API:', error.response.data);
+      console.error('Code d\'erreur:', error.response.status);
+      console.error('Message:', error.response.data);
+      
+      if (error.response.status === 403) {
+        console.error('\nERREUR 403 - Solutions possibles:');
+        console.error('1. Vérifiez que votre clé API est correcte');
+        console.error('2. Assurez-vous d\'avoir les droits nécessaires sur votre compte Hugging Face');
+        console.error('3. Vérifiez que vous avez accepté les conditions d\'utilisation du modèle');
+        console.error('\nVous pouvez vérifier votre clé API sur: https://huggingface.co/settings/tokens');
+      }
     } else {
-      console.error(error.message);
+      console.error('Erreur:', error.message);
     }
     process.exit(1);
   }
