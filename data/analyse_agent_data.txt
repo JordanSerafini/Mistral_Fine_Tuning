@@ -78,4 +78,3 @@
             {"role": "user", "content": "oui"},
             {"role": "assistant", "content": "Le fournisseur sélectionné pour le chantier n°5 est CarrelagePro. La livraison est prévue pour le 18 mars."}
         ]
-    }

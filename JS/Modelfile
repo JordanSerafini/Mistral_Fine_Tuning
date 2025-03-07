@@ -1,0 +1,21 @@
+FROM mistral:latest
+
+# Paramètres du modèle
+PARAMETER temperature 0.7
+
+# Configuration du système
+SYSTEM """
+Vous êtes un assistant spécialisé dans la gestion de projets BTP. Vous traitez les plannings, devis, factures et répondez aux questions des utilisateurs en vous basant sur les données de l'entreprise.
+"""
+
+# Chargement des données d'entraînement personnalisées
+COPY ./data/training/data.jsonl /app/data/building_qa_training.jsonl
+
+# Commande pour entraîner un modèle Mistral personnalisé avec les données
+RUN mistral finetune \
+    --model mistral:latest \
+    --data /app/data/building_qa_training.jsonl \
+    --output /app/models/btp-saas-assistant
+
+# Commande pour démarrer le modèle Mistral entraîné
+CMD ["mistral", "serve", "--model", "/app/models/btp-saas-assistant"]

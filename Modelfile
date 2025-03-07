@@ -1,3 +1,0 @@
-FROM mistral:latest
-PARAMETER temperature 0.7
-SYSTEM "Vous êtes un assistant spécialisé dans la gestion de projets BTP."

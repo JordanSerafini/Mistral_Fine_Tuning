@@ -1,0 +1,84 @@
+{"messages": [
+    {"role": "system", "content": "Tu es un assistant chargé de gérer les emails pour un service de BTP. Tu peux lire, résumer, classer et envoyer des emails en fonction des demandes."},
+    {"role": "user", "content": "regarde les mails d'aujourd'hui"},
+    {"role": "assistant", "content": "Vous souhaitez voir les emails reçus aujourd'hui ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Voici les emails reçus aujourd’hui :\n1️⃣ **Objet : Commande validée** - Fournisseur MatériauxPro\n2️⃣ **Objet : Demande de devis** - Client M. Durand\n3️⃣ **Objet : Relance paiement** - Facture n°2024005"}
+]}
+{"messages": [
+    {"role": "user", "content": "résume moi le mail de MatériauxPro"},
+    {"role": "assistant", "content": "Le mail de MatériauxPro confirme la validation de la commande pour le chantier n°5. La livraison est prévue le 20 mars."}
+]}
+{"messages": [
+    {"role": "user", "content": "efface le mail de relance paiement"},
+    {"role": "assistant", "content": "Vous souhaitez supprimer l'email de relance de paiement de la facture n°2024005 ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "L'email a été supprimé avec succès."}
+]}
+{"messages": [
+    {"role": "user", "content": "classe l'email de devis"},
+    {"role": "assistant", "content": "Je vais classer l'email de M. Durand dans le dossier 'Devis en attente'."}
+]}
+{"messages": [
+    {"role": "user", "content": "envoie un mail à Mr Dupont pour confirmer le rdv"},
+    {"role": "assistant", "content": "Vous souhaitez envoyer un email à M. Dupont pour confirmer son rendez-vous ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "L'email a été envoyé à M. Dupont avec le message suivant :\n'Bonjour M. Dupont, votre rendez-vous est confirmé pour le 15 mars à 14h. Cordialement.'"}
+]}
+{"messages": [
+    {"role": "user", "content": "cherche les mails importants"},
+    {"role": "assistant", "content": "Voici les emails marqués comme importants :\n1️⃣ **Objet : Urgent - Problème chantier** - Client Mme Martin\n2️⃣ **Objet : Validation de paiement** - Service comptabilité"}
+]}
+{"messages": [
+    {"role": "user", "content": "archive tous les mails traités"},
+    {"role": "assistant", "content": "Tous les emails traités ont été archivés avec succès."}
+]}
+{"messages": [
+    {"role": "user", "content": "filtre les mails de fournisseurs"},
+    {"role": "assistant", "content": "Voici les emails provenant des fournisseurs :\n1️⃣ **Objet : Commande validée** - MatériauxPro\n2️⃣ **Objet : Disponibilité du matériel** - EquipementsExpress"}
+]}
+{"messages": [
+    {"role": "user", "content": "y a-t-il des mails en attente de réponse ?"},
+    {"role": "assistant", "content": "Oui, vous avez 2 emails en attente de réponse :\n1️⃣ **Objet : Demande de devis** - Client M. Durand\n2️⃣ **Objet : Question sur livraison** - Fournisseur TransportLog"}
+]}
+{"messages": [
+    {"role": "user", "content": "est-ce que j'ai des mails urgents ?"},
+    {"role": "assistant", "content": "Je vérifie les emails urgents..."},
+    {"role": "assistant", "content": "Oui, 1 email urgent détecté :\n📌 **Objet : Problème sur chantier** - Client Mme Martin\n👉 Souhaitez-vous le traiter en priorité ?"}
+]}
+{"messages": [
+    {"role": "user", "content": "réponds au mail de M. Dupont"},
+    {"role": "assistant", "content": "Le message de M. Dupont concerne une demande de devis pour une rénovation. Je propose cette réponse :"},
+    {"role": "assistant", "content": "'Bonjour M. Dupont, nous avons bien reçu votre demande de devis pour la rénovation. Nous vous contacterons sous 24h. Cordialement, [Nom de l'entreprise].'"},
+    {"role": "user", "content": "ok envoie"},
+    {"role": "assistant", "content": "L'email a été envoyé à M. Dupont."}
+]}
+{"messages": [
+    {"role": "user", "content": "relance les clients qui n'ont pas payé"},
+    {"role": "assistant", "content": "J’ai trouvé 2 factures impayées :\n📌 **Facture n°2024008** (1200€) - Échéance dépassée de 5 jours\n📌 **Facture n°2024012** (850€) - Échéance aujourd’hui"},
+    {"role": "assistant", "content": "Voulez-vous envoyer un rappel de paiement ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Les rappels ont été envoyés aux clients concernés avec un message standard de relance."}
+]}
+{"messages": [
+    {"role": "user", "content": "analyse le mail de TransportX"},
+    {"role": "assistant", "content": "Le mail de TransportX semble suspect :\n❌ L’adresse email est inconnue.\n❌ Une demande de paiement imprévue est incluse.\n❌ Aucune facture associée dans la base de données."},
+    {"role": "assistant", "content": "Je recommande de ne pas répondre et de signaler cet email."}
+]}
+{"messages": [
+    {"role": "user", "content": "ajoute une tâche pour le mail de chantier 4"},
+    {"role": "assistant", "content": "Le mail parle d'une livraison de carrelage pour le 18 mars. Voulez-vous l’ajouter au planning ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Tâche créée dans le planning : 📅 Livraison carrelage - 18 mars, chantier 4."}
+]}
+{"messages": [
+    {"role": "user", "content": "extrait les infos du mail de livraison"},
+    {"role": "assistant", "content": "Voici les informations extraites du mail :\n📦 **Fournisseur : MatériauxPro**\n🚛 **Produit : 20 sacs de ciment**\n📅 **Date de livraison : 18 mars**\n📍 **Chantier : Lyon, Rue des Marronniers**"},
+    {"role": "assistant", "content": "Souhaitez-vous ajouter ces informations au dossier chantier ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Les informations ont été ajoutées au chantier concerné."}
+]}
+{"messages": [
+    {"role": "user", "content": "traduis le mail de CarrelageSpain"},
+    {"role": "assistant", "content": "Le mail est en espagnol. Voici la traduction :\n'Bonjour, votre commande de carrelage est confirmée. Livraison prévue le 20 mars.'"}
+]}

@@ -1,0 +1,6 @@
+{"messages": [
+    {"role": "user", "content": "ajoute un chantier le 15 avril"},
+    {"role": "assistant", "content": "Le 15 avril est déjà occupé par un autre chantier. Voulez-vous proposer une nouvelle date ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Je vous propose le 17 avril. Voulez-vous confirmer ?"}
+]}
