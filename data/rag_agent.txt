@@ -1,0 +1,26 @@
+[
+    {
+        "messages": [
+            {"role": "user", "content": "Comment calculer la TVA d'un devis ?"},
+            {"role": "assistant", "content": "La TVA est calculée en appliquant le taux correspondant (ex: 20%) au montant HT du devis. Formule : TVA = Montant HT × (Taux / 100)."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Comment estimer le temps pour poser du carrelage ?"},
+            {"role": "assistant", "content": "Cela dépend du type de carrelage et de la surface à couvrir. En moyenne, un carreleur pose environ 5-8m² par jour, préparation incluse."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Quels sont les documents nécessaires pour un permis de construire ?"},
+            {"role": "assistant", "content": "Un permis de construire nécessite un plan de situation, un plan de masse, une notice descriptive, des plans de façade, etc."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Quels sont les délais de paiement habituels ?"},
+            {"role": "assistant", "content": "Les délais de paiement sont généralement de 30 jours à compter de la date de facturation, sauf accord spécifique."}
+        ]
+    }
+]

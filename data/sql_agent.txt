@@ -1,0 +1,32 @@
+[
+    {
+        "messages": [
+            {"role": "user", "content": "Liste des devis en attente ?"},
+            {"role": "assistant", "content": "SELECT * FROM quotations WHERE status = 'en_attente';"}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Quels sont les matériaux disponibles pour le chantier 3 ?"},
+            {"role": "assistant", "content": "SELECT m.name, pm.quantity FROM project_materials pm JOIN materials m ON pm.material_id = m.id WHERE pm.project_id = 3;"}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Quels sont les paiements en retard ?"},
+            {"role": "assistant", "content": "SELECT * FROM invoices WHERE status = 'en_retard';"}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Qui est le fournisseur du carrelage pour le chantier 5 ?"},
+            {"role": "assistant", "content": "SELECT s.name FROM supplier_orders so JOIN suppliers s ON so.supplier_id = s.id WHERE so.project_id = 5 AND so.reference LIKE '%carrelage%';"}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Quels sont les chantiers en cours cette semaine ?"},
+            {"role": "assistant", "content": "SELECT * FROM projects WHERE status = 'en_cours' AND start_date <= NOW() AND end_date >= NOW();"}
+        ]
+    }
+]

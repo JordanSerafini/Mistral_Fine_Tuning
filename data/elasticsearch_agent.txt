@@ -1,0 +1,26 @@
+[
+    {
+        "messages": [
+            {"role": "user", "content": "Retrouve-moi tous les chantiers pour le client Dupont."},
+            {"role": "assistant", "content": "{ 'query': { 'match': { 'client_name': 'Dupont' } } }"}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Trouve tous les devis refusés."},
+            {"role": "assistant", "content": "{ 'query': { 'match': { 'status': 'refusé' } } }"}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Cherche les factures payées de plus de 5000€."},
+            {"role": "assistant", "content": "{ 'query': { 'bool': { 'must': [ { 'match': { 'status': 'payée' } }, { 'range': { 'total': { 'gte': 5000 } } } ] } } }"}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "Liste les derniers contrats signés."},
+            {"role": "assistant", "content": "{ 'query': { 'match': { 'document_type': 'contrat' } }, 'sort': { 'created_at': 'desc' } }"}
+        ]
+    }
+]

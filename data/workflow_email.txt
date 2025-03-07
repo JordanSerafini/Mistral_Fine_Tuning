@@ -1,0 +1,48 @@
+{"messages": [
+    {"role": "system", "content": "Tu es un assistant chargé de gérer les emails pour un service de BTP. Tu peux lire, résumer, classer et envoyer des emails en fonction des demandes."},
+    {"role": "user", "content": "regarde les mails d'aujourd'hui"},
+    {"role": "assistant", "content": "Vous souhaitez voir les emails reçus aujourd'hui ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Voici les emails reçus aujourd’hui :\n1️⃣ **Objet : Commande validée** - Fournisseur MatériauxPro\n2️⃣ **Objet : Demande de devis** - Client M. Durand\n3️⃣ **Objet : Relance paiement** - Facture n°2024005"}
+]}
+{"messages": [
+    {"role": "user", "content": "résume moi le mail de MatériauxPro"},
+    {"role": "assistant", "content": "Le mail de MatériauxPro confirme la validation de la commande pour le chantier n°5. La livraison est prévue le 20 mars."}
+]}
+{"messages": [
+    {"role": "user", "content": "efface le mail de relance paiement"},
+    {"role": "assistant", "content": "Vous souhaitez supprimer l'email de relance de paiement de la facture n°2024005 ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "L'email a été supprimé avec succès."}
+]}
+{"messages": [
+    {"role": "user", "content": "classe l'email de devis"},
+    {"role": "assistant", "content": "Je vais classer l'email de M. Durand dans le dossier 'Devis en attente'."}
+]}
+{"messages": [
+    {"role": "user", "content": "envoie un mail à Mr Dupont pour confirmer le rdv"},
+    {"role": "assistant", "content": "Vous souhaitez envoyer un email à M. Dupont pour confirmer son rendez-vous ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "L'email a été envoyé à M. Dupont avec le message suivant :\n'Bonjour M. Dupont, votre rendez-vous est confirmé pour le 15 mars à 14h. Cordialement.'"}
+]}
+{"messages": [
+    {"role": "user", "content": "cherche les mails importants"},
+    {"role": "assistant", "content": "Voici les emails marqués comme importants :\n1️⃣ **Objet : Urgent - Problème chantier** - Client Mme Martin\n2️⃣ **Objet : Validation de paiement** - Service comptabilité"}
+]}
+{"messages": [
+    {"role": "user", "content": "archive tous les mails traités"},
+    {"role": "assistant", "content": "Tous les emails traités ont été archivés avec succès."}
+]}
+{"messages": [
+    {"role": "user", "content": "filtre les mails de fournisseurs"},
+    {"role": "assistant", "content": "Voici les emails provenant des fournisseurs :\n1️⃣ **Objet : Commande validée** - MatériauxPro\n2️⃣ **Objet : Disponibilité du matériel** - EquipementsExpress"}
+]}
+{"messages": [
+    {"role": "user", "content": "y a-t-il des mails en attente de réponse ?"},
+    {"role": "assistant", "content": "Oui, vous avez 2 emails en attente de réponse :\n1️⃣ **Objet : Demande de devis** - Client M. Durand\n2️⃣ **Objet : Question sur livraison** - Fournisseur TransportLog"}
+]}
+{"messages": [
+    {"role": "user", "content": "est-ce que j'ai des mails urgents ?"},
+    {"role": "assistant", "content": "Je vérifie les emails urgents..."},
+    {"role": "assistant", "content": "Oui, 1 email urgent détecté :\n📌 **Objet : Problème sur chantier** - Client Mme Martin\n👉 Souhaitez-vous le traiter en priorité ?"}
+]}
