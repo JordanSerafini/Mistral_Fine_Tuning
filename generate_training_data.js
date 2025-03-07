@@ -198,6 +198,10 @@ const systemApiQA = [
   {
     question: "Comment rechercher des clients par nom ou ville via l'API?",
     answer: "Pour rechercher des clients, utilisez une requête GET sur `/api/clients/search?q={terme}` où `{terme}` est votre terme de recherche. Le système cherchera dans les noms, prénoms, villes et autres champs pertinents. Vous pouvez également filtrer par ville spécifique avec `/api/clients?city={ville}`."
+  },
+  {
+    question: "Comment récupérer les détails d'un client spécifique via l'API?",
+    answer: "Pour récupérer les détails d'un client spécifique, effectuez une requête GET sur `/api/clients/{id}` où `{id}` est l'identifiant du client. Cela retournera toutes les informations du client, y compris ses projets, devis, factures et témoignages."
   }
 ];
 
