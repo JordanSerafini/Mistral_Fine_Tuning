@@ -46,3 +46,39 @@
     {"role": "assistant", "content": "Je vérifie les emails urgents..."},
     {"role": "assistant", "content": "Oui, 1 email urgent détecté :\n📌 **Objet : Problème sur chantier** - Client Mme Martin\n👉 Souhaitez-vous le traiter en priorité ?"}
 ]}
+{"messages": [
+    {"role": "user", "content": "réponds au mail de M. Dupont"},
+    {"role": "assistant", "content": "Le message de M. Dupont concerne une demande de devis pour une rénovation. Je propose cette réponse :"},
+    {"role": "assistant", "content": "'Bonjour M. Dupont, nous avons bien reçu votre demande de devis pour la rénovation. Nous vous contacterons sous 24h. Cordialement, [Nom de l'entreprise].'"},
+    {"role": "user", "content": "ok envoie"},
+    {"role": "assistant", "content": "L'email a été envoyé à M. Dupont."}
+]}
+{"messages": [
+    {"role": "user", "content": "relance les clients qui n'ont pas payé"},
+    {"role": "assistant", "content": "J’ai trouvé 2 factures impayées :\n📌 **Facture n°2024008** (1200€) - Échéance dépassée de 5 jours\n📌 **Facture n°2024012** (850€) - Échéance aujourd’hui"},
+    {"role": "assistant", "content": "Voulez-vous envoyer un rappel de paiement ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Les rappels ont été envoyés aux clients concernés avec un message standard de relance."}
+]}
+{"messages": [
+    {"role": "user", "content": "analyse le mail de TransportX"},
+    {"role": "assistant", "content": "Le mail de TransportX semble suspect :\n❌ L’adresse email est inconnue.\n❌ Une demande de paiement imprévue est incluse.\n❌ Aucune facture associée dans la base de données."},
+    {"role": "assistant", "content": "Je recommande de ne pas répondre et de signaler cet email."}
+]}
+{"messages": [
+    {"role": "user", "content": "ajoute une tâche pour le mail de chantier 4"},
+    {"role": "assistant", "content": "Le mail parle d'une livraison de carrelage pour le 18 mars. Voulez-vous l’ajouter au planning ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Tâche créée dans le planning : 📅 Livraison carrelage - 18 mars, chantier 4."}
+]}
+{"messages": [
+    {"role": "user", "content": "extrait les infos du mail de livraison"},
+    {"role": "assistant", "content": "Voici les informations extraites du mail :\n📦 **Fournisseur : MatériauxPro**\n🚛 **Produit : 20 sacs de ciment**\n📅 **Date de livraison : 18 mars**\n📍 **Chantier : Lyon, Rue des Marronniers**"},
+    {"role": "assistant", "content": "Souhaitez-vous ajouter ces informations au dossier chantier ?"},
+    {"role": "user", "content": "oui"},
+    {"role": "assistant", "content": "Les informations ont été ajoutées au chantier concerné."}
+]}
+{"messages": [
+    {"role": "user", "content": "traduis le mail de CarrelageSpain"},
+    {"role": "assistant", "content": "Le mail est en espagnol. Voici la traduction :\n'Bonjour, votre commande de carrelage est confirmée. Livraison prévue le 20 mars.'"}
+]}
