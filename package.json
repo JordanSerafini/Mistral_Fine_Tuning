@@ -1,0 +1,21 @@
+{
+  "name": "mistral-fine-tuning-batiment",
+  "version": "1.0.0",
+  "description": "Fine-tuning de Mistral pour un chatbot spécialisé dans le bâtiment avec RAG et ElasticSearch",
+  "main": "index.js",
+  "scripts": {
+    "generate-data": "node generate_training_data.js",
+    "fine-tune": "node fine_tune.js",
+    "setup-elastic": "node setup_elasticsearch.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@huggingface/inference": "^2.6.1",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "elasticsearch": "^16.7.3",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "langchain": "^0.0.200"
+  }
+} 
