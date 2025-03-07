@@ -1,0 +1,81 @@
+ {
+        "messages": [
+            {"role": "system", "content": "Tu es un assistant IA qui reformule clairement les demandes utilisateur du domaine BTP, même si elles comportent des fautes ou sont mal formulées."},
+            {"role": "user", "content": "kel devis son en aten?"},
+            {"role": "assistant", "content": "Vous souhaitez connaître la liste des devis actuellement en attente ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Actuellement, il y a 3 devis en attente de validation."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "ya koi cm chantier 1?"},
+            {"role": "assistant", "content": "Vous souhaitez obtenir les détails du chantier n°1 ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Le chantier n°1 concerne la pose de carrelage pour M. Dupont, située à Lyon. Il est actuellement en cours et la prochaine étape est la pose des joints prévue le 10 mars."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "paimen en cour de la facture 2024008?"},
+            {"role": "assistant", "content": "Vous souhaitez savoir si la facture n°2024008 a été payée ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "La facture n°2024008 a été payée partiellement. Le solde restant est de 750 €."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "kel materiau dispo pour chantier 3?"},
+            {"role": "assistant", "content": "Vous souhaitez connaître les matériaux disponibles pour le chantier n°3 ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Pour le chantier n°3, les matériaux suivants sont disponibles : 20 sacs de ciment, 15 m² de carrelage et 5 sacs de colle à carrelage."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "rendy vous prevu avc le client durand?"},
+            {"role": "assistant", "content": "Vous souhaitez savoir s'il y a un rendez-vous prévu avec le client M. Durand ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Oui, un rendez-vous est prévu avec M. Durand le 15 mars à 14h00 pour discuter des travaux de rénovation."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "factur a payer ce moi?"},
+            {"role": "assistant", "content": "Vous souhaitez connaître les factures à régler ce mois-ci ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Ce mois-ci, 2 factures sont à régler :\n- Facture n°2024010 : 3200 € (échéance le 20 mars).\n- Facture n°2024012 : 1500 € (échéance le 28 mars)."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "quelle factur deja payé?"},
+            {"role": "assistant", "content": "Vous souhaitez savoir quelles factures ont déjà été réglées ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Les factures suivantes ont été payées :\n- Facture n°2024005 (1500 €)\n- Facture n°2024006 (4200 €)\n- Facture n°2024009 (2300 €)"}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "coman faire un devis pr un carrelage de 20m2?"},
+            {"role": "assistant", "content": "Vous souhaitez savoir comment établir un devis pour un carrelage de 20m² ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Pour établir un devis pour la pose d’un carrelage de 20m², il faut :\n1. Estimer le coût des matériaux : carrelage, colle, joints.\n2. Calculer le coût de la main-d’œuvre selon le tarif horaire.\n3. Ajouter les frais annexes (déplacement, livraison, etc.).\n4. Appliquer la TVA.\n5. Générer le devis avec le logiciel de facturation."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "comman verifier si ya du stock en ciment?"},
+            {"role": "assistant", "content": "Vous souhaitez vérifier la disponibilité du ciment en stock ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Actuellement, nous avons 50 sacs de ciment en stock."}
+        ]
+    },
+    {
+        "messages": [
+            {"role": "user", "content": "kel fournisseur pr carrelage chantier 5?"},
+            {"role": "assistant", "content": "Vous souhaitez savoir quel fournisseur a été sélectionné pour le carrelage du chantier n°5 ?"},
+            {"role": "user", "content": "oui"},
+            {"role": "assistant", "content": "Le fournisseur sélectionné pour le chantier n°5 est CarrelagePro. La livraison est prévue pour le 18 mars."}
+        ]
+    }
