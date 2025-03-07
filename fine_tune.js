@@ -70,39 +70,49 @@ async function startFineTuning() {
   try {
     // Vérifier la connexion à Hugging Face
     try {
-      await axios.get('https://huggingface.co/api/health');
-      console.log('✓ Connexion à Hugging Face établie');
+      await axios.get('https://api-inference.huggingface.co/status');
+      console.log('✓ Connexion à l\'API Hugging Face établie');
     } catch (error) {
-      throw new Error('Impossible de se connecter à Hugging Face. Vérifiez votre connexion Internet.');
+      throw new Error('Impossible de se connecter à l\'API Hugging Face. Vérifiez votre connexion Internet.');
     }
 
     // Vérifier la clé API
     try {
-      await axios.get('https://huggingface.co/api/whoami', {
+      const response = await axios.get(`https://api-inference.huggingface.co/models/${BASE_MODEL}`, {
         headers: { 'Authorization': `Bearer ${HF_API_KEY}` }
       });
-      console.log('✓ Clé API valide');
+      console.log('✓ Clé API valide et modèle accessible');
     } catch (error) {
-      throw new Error('Clé API invalide ou problème d\'authentification.');
+      if (error.response && error.response.status === 403) {
+        throw new Error('Clé API invalide ou droits insuffisants. Vérifiez votre clé sur https://huggingface.co/settings/tokens');
+      } else {
+        throw new Error('Modèle non accessible. Vérifiez que vous avez accepté les conditions d\'utilisation du modèle.');
+      }
     }
     
     // Préparer les données pour l'API
-    const formData = new FormData();
-    formData.append('training_file', fs.createReadStream(trainingDataPath));
-    formData.append('config', JSON.stringify(trainingConfig));
+    const trainingData = {
+      model: BASE_MODEL,
+      inputs: fs.readFileSync(trainingDataPath, 'utf8'),
+      parameters: {
+        ...trainingConfig,
+        task: 'text-generation',
+        do_sample: true,
+        max_new_tokens: 32768,
+        temperature: 0.6,
+        top_p: 0.95
+      }
+    };
     
     // Appel à l'API Hugging Face pour le fine-tuning
     const response = await axios.post(
-      'https://huggingface.co/api/models/fine-tune',
-      formData,
+      `https://api-inference.huggingface.co/models/${BASE_MODEL}/train`,
+      trainingData,
       {
         headers: {
           'Authorization': `Bearer ${HF_API_KEY}`,
-          'Content-Type': 'multipart/form-data',
-          ...formData.getHeaders()
+          'Content-Type': 'application/json'
         },
-        maxBodyLength: Infinity,
-        maxContentLength: Infinity,
         timeout: 60000 // 60 secondes de timeout
       }
     );
@@ -144,7 +154,7 @@ async function startFineTuning() {
 async function checkFineTuningStatus(taskId) {
   try {
     const response = await axios.get(
-      `https://api-inference.huggingface.co/models/fine-tune/${taskId}`,
+      `https://api-inference.huggingface.co/models/${OUTPUT_MODEL}/tasks/${taskId}`,
       {
         headers: {
           'Authorization': `Bearer ${HF_API_KEY}`
@@ -158,9 +168,10 @@ async function checkFineTuningStatus(taskId) {
   } catch (error) {
     console.error('Erreur lors de la vérification du statut:');
     if (error.response) {
-      console.error('Réponse de l\'API:', error.response.data);
+      console.error('Code d\'erreur:', error.response.status);
+      console.error('Message:', error.response.data);
     } else {
-      console.error(error.message);
+      console.error('Erreur:', error.message);
     }
   }
 }
