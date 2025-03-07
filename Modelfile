@@ -1,0 +1,18 @@
+FROM mistral
+
+# Paramètres du modèle
+PARAMETER temperature 0.7
+PARAMETER top_p 0.95
+PARAMETER stop "Humain:"
+PARAMETER stop "Assistant:"
+
+# Configuration du système
+SYSTEM """Tu es un assistant spécialisé dans le domaine du bâtiment, capable de répondre à des questions techniques et professionnelles sur la construction, la rénovation, et les normes du bâtiment."""
+
+# Données d'entraînement
+TEMPLATE """{{.System}}
+
+Humain: {{.Prompt}}
+Assistant: Laissez-moi vous aider avec votre question sur le bâtiment.
+{{.Response}}
+""" 
