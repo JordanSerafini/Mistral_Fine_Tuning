@@ -1,3 +1,35 @@
-node_modules
+# Dépendances
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+
+# Environnement
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dossiers de build
+/dist
+/build
+
+# Fichiers de données d'entraînement volumineux
+/data/training/*.jsonl
+
+# Logs
+logs
+*.log
+
+# Système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.idea/
+.vscode/
+*.swp
+*.swo
 
