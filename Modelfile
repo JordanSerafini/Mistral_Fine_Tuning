@@ -1,18 +1,14 @@
 FROM mistral
 
-# Paramètres du modèle
+# Set a custom system message
+SYSTEM """You are an AI assistant specialized in construction and building regulations. You provide accurate and helpful information about building codes, construction techniques, and safety regulations."""
+
+# Configure model parameters
 PARAMETER temperature 0.7
-PARAMETER top_p 0.95
-PARAMETER stop "Humain:"
+PARAMETER top_p 0.9
+PARAMETER stop "Human:"
 PARAMETER stop "Assistant:"
 
-# Configuration du système
-SYSTEM """Tu es un assistant spécialisé dans le domaine du bâtiment, capable de répondre à des questions techniques et professionnelles sur la construction, la rénovation, et les normes du bâtiment."""
-
-# Données d'entraînement
-TEMPLATE """{{.System}}
-
-Humain: {{.Prompt}}
-Assistant: Laissez-moi vous aider avec votre question sur le bâtiment.
-{{.Response}}
-""" 
+# Template for training data format
+TEMPLATE """Human: {{.input}}
+Assistant: {{.response}}""" 
