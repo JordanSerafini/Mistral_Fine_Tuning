@@ -1,5 +1,7 @@
 const fs = require('fs');
-const fetch = require('node-fetch');
+const { exec } = require('child_process');
+const util = require('util');
+const execPromise = util.promisify(exec);
 
 async function trainModel() {
     // Lire le fichier JSONL
@@ -23,28 +25,19 @@ Réponse: ${assistantMessage}
 Maintenant, réponds à cette question comme je viens de le faire.
 Question: ${userMessage}`;
 
-            // Envoyer à l'API Ollama
-            const response = await fetch('http://127.0.0.1:11434/api/generate', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    model: 'batiment-expert',
-                    prompt: prompt,
-                    system: "Tu es un expert en construction et bâtiment. Tu dois répondre en français de manière précise et professionnelle.",
-                    stream: false
-                })
-            });
+            // Échapper les caractères spéciaux pour la ligne de commande
+            const escapedPrompt = prompt.replace(/"/g, '\\"');
 
-            if (!response.ok) {
-                const error = await response.text();
-                throw new Error(`Erreur HTTP: ${response.status} - ${error}`);
+            // Utiliser la commande ollama directement
+            const command = `ollama run batiment-expert "${escapedPrompt}"`;
+            const { stdout, stderr } = await execPromise(command);
+
+            if (stderr) {
+                console.error(`Attention pour l'exemple ${i + 1}:`, stderr);
             }
 
-            const result = await response.json();
             console.log(`Exemple ${i + 1}/${lines.length} traité avec succès`);
-            console.log(`Réponse du modèle:`, result.response);
+            console.log(`Réponse du modèle:`, stdout);
             console.log(`Progression: ${((i + 1) / lines.length * 100).toFixed(2)}%`);
             console.log('-------------------');
 
