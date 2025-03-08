@@ -1,0 +1,13 @@
+transformers>=4.35.0
+datasets>=2.14.0
+peft>=0.5.0
+accelerate>=0.23.0
+bitsandbytes>=0.41.0
+torch>=2.0.0
+python-dotenv>=1.0.0
+huggingface_hub>=0.17.0
+tqdm>=4.66.0
+sentencepiece>=0.1.99
+protobuf>=4.24.0
+scipy>=1.11.0
+einops>=0.7.0 
