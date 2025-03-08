@@ -36,12 +36,15 @@ show_help() {
     echo "  --batch N         Définir la taille du batch (par défaut: 4 pour small/gpt2, 1 pour large)"
     echo "  --output PATH     Définir le chemin de sortie du modèle"
     echo "  --clean           Nettoyer le dossier de sortie avant l'entraînement"
+    echo "  --continue        Continuer l'entraînement à partir d'un modèle existant"
+    echo "  --from PATH       Spécifier le modèle existant à partir duquel continuer (avec --continue)"
     echo "  --help            Afficher cette aide"
     echo ""
     echo "Exemples:"
     echo "  ./run_finetune.sh --small                      # Fine-tuner TinyLlama (1.1B) avec QLoRA"
     echo "  ./run_finetune.sh --large --epochs 3           # Fine-tuner Mistral (7B) avec 3 époques"
     echo "  ./run_finetune.sh --gpt2 --output mon_modele   # Fine-tuner GPT2 et sauvegarder dans mon_modele"
+    echo "  ./run_finetune.sh --continue --from jordanS/analyse_agent  # Continuer l'entraînement"
 }
 
 # Traiter les arguments
@@ -51,6 +54,8 @@ EPOCHS=""
 BATCH_SIZE=""
 OUTPUT_PATH=""
 CLEAN_OUTPUT="false"
+CONTINUE_TRAINING="false"
+EXISTING_MODEL=""
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -87,6 +92,15 @@ while [[ $# -gt 0 ]]; do
             CLEAN_OUTPUT="true"
             echo "Nettoyage du dossier de sortie activé"
             ;;
+        --continue)
+            CONTINUE_TRAINING="true"
+            echo "Continuation de l'entraînement activée"
+            ;;
+        --from)
+            EXISTING_MODEL="$2"
+            echo "Modèle existant: $EXISTING_MODEL"
+            shift
+            ;;
         --help)
             show_help
             exit 0
@@ -118,6 +132,10 @@ if [ ! -z "$OUTPUT_PATH" ]; then
     echo "- OUTPUT_PATH: $OUTPUT_PATH"
 fi
 echo "- CLEAN_OUTPUT: $CLEAN_OUTPUT"
+echo "- CONTINUE_TRAINING: $CONTINUE_TRAINING"
+if [ ! -z "$EXISTING_MODEL" ]; then
+    echo "- EXISTING_MODEL: $EXISTING_MODEL"
+fi
 
 # Exporter les variables d'environnement
 export USE_SMALLER_MODEL=$USE_SMALLER_MODEL
@@ -132,6 +150,10 @@ if [ ! -z "$OUTPUT_PATH" ]; then
     export OUTPUT_MODEL=$OUTPUT_PATH
 fi
 export CLEAN_OUTPUT=$CLEAN_OUTPUT
+export CONTINUE_TRAINING=$CONTINUE_TRAINING
+if [ ! -z "$EXISTING_MODEL" ]; then
+    export EXISTING_MODEL=$EXISTING_MODEL
+fi
 
 # Nettoyer le dossier de sortie si demandé
 if [ "$CLEAN_OUTPUT" = "true" ] && [ ! -z "$OUTPUT_PATH" ]; then

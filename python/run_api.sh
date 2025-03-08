@@ -69,7 +69,7 @@ echo "Modèle: $MODEL_PATH"
 echo "Modèle de base: $BASE_MODEL"
 
 # Lancer l'API avec uvicorn directement
-uvicorn model_api:app --host 0.0.0.0 --port $PORT
+python -m uvicorn model_api:app --host 0.0.0.0 --port $PORT
 
 # Désactiver l'environnement virtuel (ne sera jamais exécuté tant que l'API est en cours d'exécution)
 # deactivate 

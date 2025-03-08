@@ -14,8 +14,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Configuration
-MODEL_PATH = os.getenv("MODEL_PATH", "jordanS/analyse_agent")
-BASE_MODEL = os.getenv("BASE_MODEL", "mistralai/Mistral-7B-v0.1")
+MODEL_PATH = os.getenv("MODEL_PATH", "jordanS/agent_router")
+BASE_MODEL = os.getenv("BASE_MODEL", "TinyLlama/TinyLlama-1.1B-Chat-v1.0")
 
 def load_model(model_path, base_model=None, use_8bit=False, use_4bit=True):
     """Charger le modèle fine-tuné"""

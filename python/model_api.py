@@ -88,36 +88,50 @@ async def generate(request: QueryRequest):
         raise HTTPException(status_code=500, detail="Le modèle n'est pas chargé")
     
     try:
-        logger.info(f"Génération pour prompt: {request.prompt[:50]}...")
+        logger.info(f"Génération pour prompt: '{request.prompt[:100]}...' avec system_prompt: '{request.system_prompt[:50]}...'")
         
         # Formater le prompt avec le format Mistral
         formatted_prompt = f"<s>[INST] {request.system_prompt}\n\n{request.prompt} [/INST]"
+        logger.info(f"Prompt formaté: '{formatted_prompt[:150]}...'")
         
         # Tokeniser le prompt
         inputs = tokenizer(formatted_prompt, return_tensors="pt").to(model.device)
         
-        # Générer la réponse
+        # Générer la réponse avec des paramètres optimisés pour la vitesse
         with torch.no_grad():
             outputs = model.generate(
                 inputs.input_ids,
-                max_length=request.max_length,
+                max_length=min(request.max_length, 512),  # Réduire la longueur maximale
                 temperature=request.temperature,
                 do_sample=True,
                 top_p=0.95,
                 top_k=50,
-                repetition_penalty=1.1
+                repetition_penalty=1.1,
+                min_length=10,  # Assurer une longueur minimale
+                no_repeat_ngram_size=3,  # Éviter les répétitions
+                early_stopping=True  # Arrêter dès qu'une séquence valide est générée
             )
         
         # Décoder la réponse
-        response = tokenizer.decode(outputs[0], skip_special_tokens=False)
+        full_response = tokenizer.decode(outputs[0], skip_special_tokens=False)
+        logger.info(f"Réponse complète décodée: '{full_response[:150]}...'")
         
         # Extraire la partie après [/INST]
-        response = response.split("[/INST]")[-1].strip()
+        if "[/INST]" in full_response:
+            response = full_response.split("[/INST]")[-1].strip()
+        else:
+            response = full_response.strip()
+            logger.warning("Balise [/INST] non trouvée dans la réponse")
         
         # Supprimer le token de fin de séquence
         response = response.replace("</s>", "").strip()
         
-        logger.info(f"Réponse générée: {response[:50]}...")
+        # Vérifier si la réponse est vide
+        if not response:
+            logger.warning("Réponse vide générée, utilisation d'une réponse par défaut")
+            response = "Je n'ai pas pu générer une réponse appropriée. Veuillez reformuler votre question de manière plus détaillée."
+        
+        logger.info(f"Réponse finale: '{response[:100]}...'")
         return {"response": response}
     
     except Exception as e:

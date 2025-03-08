@@ -22,9 +22,13 @@ load_dotenv()
 
 # Configuration
 HF_API_KEY = os.getenv("HUGGINGFACE_API_KEY")
-BASE_MODEL = os.getenv("BASE_MODEL", "mistralai/Mistral-7B-Instruct-v0.2")
+BASE_MODEL = os.getenv("BASE_MODEL", "mistralai/Mistral-7B-v0.1")
 OUTPUT_MODEL = os.getenv("OUTPUT_MODEL", "jordanS/analyse_agent")
 MODEL_ID = os.getenv("MODEL_ID", "jordanS/analyse_agent")
+
+# Option pour continuer l'entraînement à partir d'un modèle existant
+CONTINUE_TRAINING = os.getenv("CONTINUE_TRAINING", "false").lower() == "true"
+EXISTING_MODEL = os.getenv("EXISTING_MODEL", OUTPUT_MODEL)
 
 # Options pour personnaliser l'entraînement
 EPOCHS = os.getenv("EPOCHS", "")  # Vide par défaut, sera défini plus tard
@@ -32,8 +36,8 @@ BATCH_SIZE = os.getenv("BATCH_SIZE", "")  # Vide par défaut, sera défini plus 
 CLEAN_OUTPUT = os.getenv("CLEAN_OUTPUT", "false").lower() == "true"
 
 # Option pour utiliser un modèle plus petit si la mémoire est insuffisante
-USE_SMALLER_MODEL = os.getenv("USE_SMALLER_MODEL", "True").lower() == "true"
-ALTERNATIVE_MODEL = os.getenv("ALTERNATIVE_MODEL", "False").lower() == "true"
+USE_SMALLER_MODEL = os.getenv("USE_SMALLER_MODEL", "false").lower() == "true"
+ALTERNATIVE_MODEL = os.getenv("ALTERNATIVE_MODEL", "false").lower() == "true"
 
 if USE_SMALLER_MODEL:
     print("Utilisation d'un modèle plus petit pour économiser la mémoire...")
@@ -46,7 +50,11 @@ if USE_SMALLER_MODEL:
 # Définir les chemins des fichiers d'entraînement
 TRAINING_FILES = [
     os.path.join(os.path.dirname(__file__), "data", "training", "analyse_agent_data.jsonl"),
-    os.path.join(os.path.dirname(__file__), "data", "training", "analyse_agent_data-set2.jsonl")
+    os.path.join(os.path.dirname(__file__), "data", "training", "analyse_agent_data-set2.jsonl"),
+    os.path.join(os.path.dirname(__file__), "data", "training", "data3.jsonl"),
+    os.path.join(os.path.dirname(__file__), "data", "training", "data3_bis.jsonl"),
+    # Ajoutez votre nouveau fichier ici
+    # os.path.join(os.path.dirname(__file__), "data", "training", "votre_nouveau_fichier.jsonl"),
 ]
 
 def load_training_data(file_paths):
@@ -112,8 +120,13 @@ def fine_tune_model():
     dataset = Dataset.from_list(formatted_data)
     
     # 4. Charger le tokenizer et le modèle
-    print(f"Chargement du modèle {BASE_MODEL}...")
-    tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, token=HF_API_KEY)
+    if CONTINUE_TRAINING:
+        print(f"Continuation de l'entraînement à partir du modèle: {EXISTING_MODEL}")
+        print(f"Chargement du tokenizer depuis le modèle de base: {BASE_MODEL}...")
+        tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, token=HF_API_KEY)
+    else:
+        print(f"Chargement du modèle {BASE_MODEL}...")
+        tokenizer = AutoTokenizer.from_pretrained(BASE_MODEL, token=HF_API_KEY)
     
     # Configurer le tokenizer
     tokenizer.pad_token = tokenizer.eos_token
@@ -243,6 +256,8 @@ def fine_tune_model():
                 push_to_hub=False,
                 gradient_checkpointing=False,  # Désactiver pour GPT2
                 optim="adamw_torch_fused",
+                # Ajouter l'option pour continuer l'entraînement
+                resume_from_checkpoint=EXISTING_MODEL if CONTINUE_TRAINING else None,
             )
         else:
             # Pour TinyLlama avec QLoRA
@@ -263,6 +278,8 @@ def fine_tune_model():
                 gradient_checkpointing=True,  # Activer pour QLoRA
                 optim="paged_adamw_8bit",  # Optimiseur optimisé pour QLoRA
                 max_grad_norm=0.3,
+                # Ajouter l'option pour continuer l'entraînement
+                resume_from_checkpoint=EXISTING_MODEL if CONTINUE_TRAINING else None,
             )
     else:
         # Pour les grands modèles avec QLoRA
@@ -283,6 +300,8 @@ def fine_tune_model():
             gradient_checkpointing=True,
             optim="paged_adamw_8bit",  # Optimiseur optimisé pour QLoRA
             max_grad_norm=0.3,
+            # Ajouter l'option pour continuer l'entraînement
+            resume_from_checkpoint=EXISTING_MODEL if CONTINUE_TRAINING else None,
         )
     
     # 10. Créer le data collator
