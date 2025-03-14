@@ -21,7 +21,7 @@ class QueryRequest(BaseModel):
     prompt: str
     system_prompt: str = "Tu es un assistant IA expert en analyse de documents pour une entreprise de construction."
     max_length: int = 1024
-    temperature: float = 0.7
+    temperature: float = 0.1
 
 @app.on_event("startup")
 async def startup_event():
